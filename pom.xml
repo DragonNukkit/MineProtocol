@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Maven coordinates -->
+    <groupId>com.github.dragonnukkit</groupId>
+    <artifactId>mineprotocol-parent</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <!-- Project information -->
+    <name>MineProtocol Parent</name>
+    <description>The parent module of MineProtocol, a Java library to handle the Minecraft Java/Bedrock edition protocols.</description>
+    <url>https://github.com/DragonNukkit/MineProtocol</url>
+    <inceptionYear>2018</inceptionYear>
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://www.opensource.org/licenses/mit-license.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+    <organization>
+        <name>DragonNukkit</name>
+        <url>https://github.com/DragonNukkit</url>
+    </organization>
+
+    <!-- Project modules -->
+    <modules>
+        <module>common</module>
+        <!--
+        <module>java</module>
+        <module>bedrock</module>
+        -->
+    </modules>
+
+    <!-- Environment settings -->
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/DragonNukkit/MineProtocol/issues</url>
+    </issueManagement>
+    <ciManagement>
+        <system>Jenkins</system>
+        <url>https://ci.codemc.org/job/DragonNukkit/job/MineProtocol</url>
+    </ciManagement>
+    <scm>
+        <connection>scm:git:https://github.com/DragonNukkit/MineProtocol.git</connection>
+        <developerConnection>scm:git:git@github.com:DragonNukkit/MineProtocol.git</developerConnection>
+        <url>https://github.com/DragonNukkit/MineProtocol</url>
+    </scm>
+    <distributionManagement>
+        <repository>
+            <id>codemc-releases</id>
+            <url>https://repo.nukkitx.com/release</url>
+        </repository>
+        <snapshotRepository>
+            <id>codemc-snapshots</id>
+            <url>https://repo.nukkitx.com/snapshot</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <!-- Build properties -->
+    <properties>
+        <!-- Common build properties -->
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.build.timestamp.format>HHmm-ddMMyyyy</maven.build.timestamp.format>
+    </properties>
+
+    <!-- Custom repositories -->
+    <repositories>
+        <repository>
+            <id>codenmc-repo</id>
+            <url>https://repo.codemc.org/repository/maven-public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <!-- Common dependencies -->
+    <dependencies>
+        <!-- Annotations -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.20</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.findbugs</groupId>
+            <artifactId>jsr305</artifactId>
+            <version>3.0.2</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Unit testing -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <!-- Common build lifecycle -->
+    <build>
+        <defaultGoal>clean package</defaultGoal>
+        <!-- Include resources if present -->
+        <resources>
+            <resource>
+                <directory>src/main/resources/</directory>
+                <!-- Filter variables inside resources -->
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <!-- Override plugin versions, use latest releases -->
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.0.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.0.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.21.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.0.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.1.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>2.5.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.8.2</version>
+            </plugin>
+        </plugins>
+        <!-- Define module common plugins -->
+        <pluginManagement>
+            <plugins>
+                <!-- License header plugin -->
+                <plugin>
+                    <groupId>com.mycila</groupId>
+                    <artifactId>license-maven-plugin</artifactId>
+                    <version>3.0</version>
+                    <configuration>
+                        <header>LICENSE</header>
+                        <mapping>
+                            <java>SLASHSTAR_STYLE</java>
+                        </mapping>
+                        <includes>
+                            <include>src/test/java/**</include>
+                            <include>src/main/java/**</include>
+                        </includes>
+                        <useDefaultExcludes>true</useDefaultExcludes>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <phase>validate</phase>
+                            <goals>
+                                <goal>format</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <!-- Code test coverage -->
+                <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>0.8.1</version>
+                    <executions>
+                        <execution>
+                            <id>pre-unit-test</id>
+                            <goals>
+                                <goal>prepare-agent</goal>
+                            </goals>
+                        </execution>
+                        <execution>
+                            <id>post-unit-test</id>
+                            <goals>
+                                <goal>report</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>
