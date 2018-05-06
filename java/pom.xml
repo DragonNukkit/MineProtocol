@@ -10,24 +10,18 @@
         <artifactId>mineprotocol-parent</artifactId>
         <version>0.1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>mineprotocol-common</artifactId>
+    <artifactId>mineprotocol-java</artifactId>
 
     <!-- Module information -->
-    <name>MineProtocol Common</name>
-    <description>The common MineProtocol module, it contains all the common code between different protocols.</description>
+    <name>MineProtocol Java</name>
+    <description>The "MC: java edition" MineProtocol module, it contains the java edition implementation.</description>
 
     <!-- Module dependencies -->
     <dependencies>
         <dependency>
             <groupId>com.github.dragonnukkit</groupId>
-            <artifactId>mineprotocol-api</artifactId>
+            <artifactId>mineprotocol-common</artifactId>
             <version>${project.version}</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>25.0-jre</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
