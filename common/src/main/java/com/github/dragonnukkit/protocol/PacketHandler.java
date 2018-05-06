@@ -1,4 +1,4 @@
 package com.github.dragonnukkit.protocol;
 
-public interface NetworkPacketHandler {
+public interface PacketHandler {
 }

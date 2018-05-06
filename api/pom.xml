@@ -15,4 +15,19 @@
     <!-- Module information -->
     <name>MineProtocol API</name>
     <description>The API MineProtocol module, this is the public API of the project.</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>25.0-jre</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.flowpowered</groupId>
+            <artifactId>flow-math</artifactId>
+            <version>1.0.3</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 </project>
