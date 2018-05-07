@@ -12,12 +12,11 @@ jobs:
                 keys:
                 - MineProtocol-{{ checksum "pom.xml" }}
                 - MineProtocol-
-            - run: mvn -T 2 dependency:go-offline
+            - run: mvn -B package
             - save_cache:
                 paths:
                     - ~/.m2
                 key: MineProtocol-{{ checksum "pom.xml" }}
-            - run: mvn -T 2 package
             - store_test_results:
                 path: target/surefire-reports
             - store_artifacts:
@@ -34,12 +33,11 @@ jobs:
                 keys:
                 - MineProtocol-{{ checksum "pom.xml" }}
                 - MineProtocol-
-            - run: mvn -T 2 dependency:go-offline
+            - run: mvn -B package
             - save_cache:
                 paths:
                     - ~/.m2
                 key: MineProtocol-{{ checksum "pom.xml" }}
-            - run: mvn -T 2 package
             - store_test_results:
                 path: target/surefire-reports
             - store_artifacts:
@@ -56,12 +54,11 @@ jobs:
                 keys:
                 - MineProtocol-{{ checksum "pom.xml" }}
                 - MineProtocol-
-            - run: mvn -T 2 dependency:go-offline
+            - run: mvn -B package
             - save_cache:
                 paths:
                     - ~/.m2
                 key: MineProtocol-{{ checksum "pom.xml" }}
-            - run: mvn -T 2 package
             - store_test_results:
                 path: target/surefire-reports
             - store_artifacts:
