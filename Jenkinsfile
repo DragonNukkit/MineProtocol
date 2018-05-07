@@ -31,7 +31,9 @@ pipeline {
         stage ('compile') {
             steps {
                 echo 'Compiling...'
-                sh 'mvn -B clean verify'
+                withMaven(options: [artifactsPublisher(disabled: true)]) {
+                    sh 'mvn -B clean verify'
+                }
             }
             post {
                 always {
@@ -50,8 +52,8 @@ pipeline {
             }
             steps {
                 echo 'Master branch detected, deploying to maven repository...'
-                withMaven(globalMavenSettingsConfig: 'e5b005b5-be4d-4709-8657-1981662bcbe3') {
-                    sh 'mvn -DskipTests deploy'
+                withMaven(globalMavenSettingsConfig: 'e5b005b5-be4d-4709-8657-1981662bcbe3', options: [artifactsPublisher(disabled: true)]) {
+                    sh 'mvn -B -DskipTests deploy'
                 }
             }
         }
