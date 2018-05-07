@@ -50,7 +50,7 @@ pipeline {
             }
             steps {
                 echo 'Master branch detected, deploying to maven repository...'
-                withMaven(globalMavenSettingsConfig: 'global-maven') {
+                withMaven(globalMavenSettingsConfig: 'e5b005b5-be4d-4709-8657-1981662bcbe3') {
                     sh 'mvn -DskipTests deploy'
                 }
             }
