@@ -16,13 +16,13 @@ import java.util.Optional;
 public class ItemInstanceImpl implements ItemInstance {
     private final ItemType itemType;
     private final int amount;
-    private final Metadata metadata;
+    private final Optional<Metadata> metadata;
 
     public ItemInstanceImpl(@Nonnull ItemType itemType, @Nonnegative int amount, @Nullable Metadata metadata) {
         this.itemType = Preconditions.checkNotNull(itemType, "itemType");
         Preconditions.checkArgument(amount > 0);
         this.amount = amount;
-        this.metadata = metadata;
+        this.metadata = Optional.ofNullable(metadata);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class ItemInstanceImpl implements ItemInstance {
 
     @Override
     public Optional<Metadata> getItemData() {
-        return Optional.ofNullable(metadata);
+        return metadata;
     }
 
     @Override

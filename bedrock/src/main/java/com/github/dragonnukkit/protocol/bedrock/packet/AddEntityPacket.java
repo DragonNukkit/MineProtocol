@@ -3,7 +3,7 @@ package com.github.dragonnukkit.protocol.bedrock.packet;
 import com.flowpowered.math.vector.Vector3d;
 import com.flowpowered.math.vector.Vector3f;
 import com.github.dragonnukkit.protocol.VarInt;
-import com.github.dragonnukkit.protocol.api.util.Rotation;
+import com.github.dragonnukkit.protocol.api.type.math.Rotation;
 import com.github.dragonnukkit.protocol.bedrock.BedrockPacket;
 import com.github.dragonnukkit.protocol.bedrock.BedrockPacketHandler;
 import com.github.dragonnukkit.protocol.bedrock.BedrockUtil;

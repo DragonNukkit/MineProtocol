@@ -4,7 +4,7 @@ import com.flowpowered.math.vector.Vector3d;
 import com.flowpowered.math.vector.Vector3f;
 import com.flowpowered.math.vector.Vector3i;
 import com.github.dragonnukkit.protocol.VarInt;
-import com.github.dragonnukkit.protocol.api.util.Rotation;
+import com.github.dragonnukkit.protocol.api.type.math.Rotation;
 import com.github.dragonnukkit.protocol.common.entity.Attribute;
 import com.github.dragonnukkit.protocol.common.entity.EntityLink;
 import com.google.common.base.Preconditions;
