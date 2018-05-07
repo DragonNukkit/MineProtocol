@@ -36,6 +36,10 @@ public final class Rotation {
         return new Rotation(vector2f.getX(), vector2f.getY(), 0f);
     }
 
+    public static Rotation fromBodyRotation(float pitch, float yaw) {
+        return new Rotation(pitch, yaw, 0f);
+    }
+
     private static float validate(float val, String name) {
         Preconditions.checkArgument(Float.isFinite(val), "%s value (%s) is not finite", name, val);
         return val;
