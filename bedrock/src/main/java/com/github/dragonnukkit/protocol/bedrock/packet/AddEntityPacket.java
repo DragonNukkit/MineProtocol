@@ -2,21 +2,18 @@ package com.github.dragonnukkit.protocol.bedrock.packet;
 
 import com.flowpowered.math.vector.Vector3d;
 import com.flowpowered.math.vector.Vector3f;
-import com.github.dragonnukkit.protocol.VarInt;
 import com.github.dragonnukkit.protocol.api.type.math.Rotation;
 import com.github.dragonnukkit.protocol.bedrock.BedrockPacket;
 import com.github.dragonnukkit.protocol.bedrock.BedrockPacketHandler;
-import com.github.dragonnukkit.protocol.bedrock.BedrockUtil;
 import com.github.dragonnukkit.protocol.common.entity.Attribute;
 import com.github.dragonnukkit.protocol.common.entity.EntityLink;
-import io.netty.buffer.ByteBuf;
 import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class AddEntityPacket implements BedrockPacket {
+public class AddEntityPacket extends BedrockPacket {
     private long uniqueEntityId;
     private long runtimeEntityId;
     private int entityType;
@@ -28,29 +25,29 @@ public class AddEntityPacket implements BedrockPacket {
     private final List<EntityLink> entityLinks = new ArrayList<>();
 
     @Override
-    public void encode(ByteBuf buf) {
-        VarInt.writeLong(buf, uniqueEntityId);
-        VarInt.writeUnsignedLong(buf, runtimeEntityId);
-        VarInt.writeUnsignedInt(buf, entityType);
-        BedrockUtil.writeVector3f(buf, position);
-        BedrockUtil.writeVector3f(buf, motion);
-        BedrockUtil.writeBodyRotation(buf, rotation);
-        BedrockUtil.writeEntityAttributes(buf, attributes);
+    public void encode() {
+        writeVarLong(uniqueEntityId);
+        writeUnsignedVarLong(runtimeEntityId);
+        writeUnsignedVarInt(entityType);
+        writeVector3f(position);
+        writeVector3f(motion);
+        writeBodyRotation(rotation);
+        writeEntityAttributes(attributes);
         // Metadata
-        BedrockUtil.writeEntityLinks(buf, entityLinks);
+        writeEntityLinks(entityLinks);
     }
 
     @Override
-    public void decode(ByteBuf buf) {
-        uniqueEntityId = VarInt.readLong(buf);
-        runtimeEntityId = VarInt.readUnsignedLong(buf);
-        entityType = (int) VarInt.readUnsignedInt(buf);
-        position = BedrockUtil.readVector3fAs3d(buf);
-        motion = BedrockUtil.readVector3f(buf);
-        rotation = BedrockUtil.readBodyRotation(buf);
-        attributes.addAll(BedrockUtil.readEntityAttributes(buf));
+    public void decode() {
+        uniqueEntityId = readVarLong();
+        runtimeEntityId = readUnsignedVarLong();
+        entityType = (int) readUnsignedVarInt();
+        position = readVector3fAs3d();
+        motion = readVector3f();
+        rotation = readBodyRotation();
+        attributes.addAll(readEntityAttributes());
         // Metadata
-        entityLinks.addAll(BedrockUtil.readEntityLinks(buf));
+        entityLinks.addAll(readEntityLinks());
     }
 
     @Override

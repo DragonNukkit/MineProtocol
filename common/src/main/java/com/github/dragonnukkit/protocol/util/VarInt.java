@@ -1,4 +1,4 @@
-package com.github.dragonnukkit.protocol;
+package com.github.dragonnukkit.protocol.util;
 
 import io.netty.buffer.ByteBuf;
 import lombok.experimental.UtilityClass;

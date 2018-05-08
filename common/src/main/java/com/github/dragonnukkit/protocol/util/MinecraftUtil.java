@@ -1,4 +1,4 @@
-package com.github.dragonnukkit.protocol;
+package com.github.dragonnukkit.protocol.util;
 
 import lombok.experimental.UtilityClass;
 
