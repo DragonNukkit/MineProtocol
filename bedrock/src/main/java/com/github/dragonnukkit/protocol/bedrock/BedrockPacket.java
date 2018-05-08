@@ -8,7 +8,7 @@ import com.github.dragonnukkit.protocol.api.type.math.Rotation;
 import com.github.dragonnukkit.protocol.common.entity.Attribute;
 import com.github.dragonnukkit.protocol.common.entity.EntityLink;
 import com.github.dragonnukkit.protocol.util.VarInt;
-import com.whirvis.jraknet.Packet;
+import com.whirvis.jraknet.RakNetPacket;
 import io.netty.buffer.ByteBuf;
 
 import java.util.ArrayList;
@@ -16,10 +16,18 @@ import java.util.Collection;
 import java.util.List;
 
 @SuppressWarnings("WeakerAccess")
-public abstract class BedrockPacket extends Packet implements MinecraftPacket {
+public abstract class BedrockPacket extends RakNetPacket implements MinecraftPacket {
+
+    public BedrockPacket(ByteBuf buffer) {
+        super(buffer);
+    }
 
     abstract public void handle(BedrockPacketHandler handler);
+
+    @Override
     abstract public void encode();
+
+    @Override
     abstract public void decode();
 
     @Override
