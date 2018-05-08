@@ -49,7 +49,7 @@ public class VarInt {
                 return result;
             }
         }
-        throw new ArithmeticException("Varint was too large");
+        throw new ArithmeticException("The VarInt value is too large!");
     }
 
     private static void writeVarInt(ByteBuf buf, long value) {

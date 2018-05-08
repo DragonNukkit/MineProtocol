@@ -6,6 +6,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 public interface ItemInstanceBuilder {
+
     ItemInstanceBuilder itemType(@Nonnull ItemType itemType);
 
     ItemInstanceBuilder amount(@Nonnegative int amount);

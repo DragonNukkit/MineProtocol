@@ -2,27 +2,27 @@ package com.github.dragonnukkit.protocol.api.type.math;
 
 import com.flowpowered.math.vector.Vector2f;
 import com.flowpowered.math.vector.Vector3f;
-import com.github.dragonnukkit.protocol.api.util.Lazy;
+import com.github.dragonnukkit.protocol.api.util.type.LazyValue;
 import lombok.ToString;
 
 import javax.annotation.Nonnull;
 import javax.annotation.concurrent.Immutable;
 import java.util.Objects;
 
-import static com.github.dragonnukkit.protocol.api.util.ArgumentUtils.requireFinite;
+import static com.github.dragonnukkit.protocol.api.util.ValidateUtils.requireFinite;
 
 @Immutable
 @ToString(of = {"pitch", "yaw", "headYaw"})
 public final class Rotation {
     public static final Rotation ZERO = new Rotation(0f, 0f, 0f);
 
-    private volatile Lazy<Integer> hashCode;
+    private volatile LazyValue<Integer> hashCode;
     private final float pitch;
     private final float yaw;
     private final float headYaw;
 
     public Rotation(float pitch, float yaw, float headYaw) {
-        hashCode = new Lazy<>();
+        hashCode = new LazyValue<>();
         this.pitch = requireFinite(pitch, "pitch");
         this.yaw = requireFinite(yaw, "yaw");
         this.headYaw = requireFinite(headYaw, "headYaw");

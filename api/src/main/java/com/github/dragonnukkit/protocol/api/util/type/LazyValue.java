@@ -1,12 +1,12 @@
-package com.github.dragonnukkit.protocol.api.util;
+package com.github.dragonnukkit.protocol.api.util.type;
 
 import java.util.function.Supplier;
 
-public class Lazy<T> {
+public class LazyValue<T> {
 
     private T value;
 
-    public Lazy() {
+    public LazyValue() {
         value = null;
     }
 

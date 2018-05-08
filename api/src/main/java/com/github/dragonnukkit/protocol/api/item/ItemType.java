@@ -1,6 +1,7 @@
 package com.github.dragonnukkit.protocol.api.item;
 
 public interface ItemType {
+
     int getId();
 
     String getName();

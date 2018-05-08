@@ -9,16 +9,6 @@ public class EntityLink {
     private final Type type;
     private final boolean immediate;
 
-    @Override
-    public String toString() {
-        return "EntityLink(" +
-            "fromUniqueEntityId=" + fromUniqueEntityId +
-            ", toUniqueEntityId=" + toUniqueEntityId +
-            ", type=" + type +
-            ", immediate=" + immediate +
-            ')';
-    }
-
     public enum Type {
         REMOVE,
         RIDER,

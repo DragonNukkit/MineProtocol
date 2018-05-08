@@ -4,17 +4,16 @@ import com.github.dragonnukkit.protocol.api.item.ItemInstance;
 import com.github.dragonnukkit.protocol.api.item.ItemInstanceBuilder;
 import com.github.dragonnukkit.protocol.api.item.ItemType;
 import com.github.dragonnukkit.protocol.api.metadata.Metadata;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import javax.annotation.Nonnull;
 
+@NoArgsConstructor
 public class ItemInstanceBuilderImpl implements ItemInstanceBuilder {
     private ItemType itemType;
     private int amount;
     private Metadata metadata;
-
-    public ItemInstanceBuilderImpl() {
-
-    }
 
     public ItemInstanceBuilderImpl(ItemInstance item) {
         this.itemType = item.getItemType();

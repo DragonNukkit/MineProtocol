@@ -16,14 +16,13 @@ public interface ItemInstance {
 
     Optional<Metadata> getItemData();
 
+    @SuppressWarnings("unchecked")
     default <T extends Metadata> T ensureItemData(Class<T> clazz) {
-        Metadata metadata = getItemData().orElseThrow(() ->
-            new IllegalStateException("Requested metadata for " + getClass().getSimpleName() + " is undefined."));
-        if (!metadata.getClass().isAssignableFrom(clazz)) {
-            throw new IllegalStateException("Unexpected metadata type for " + getClass().getSimpleName()
-                + " (Expected: " + clazz.getSimpleName() + "; Found: " + metadata.getClass().getSimpleName() + ")");
+        try {
+            return (T) getItemData().orElseThrow(() -> new IllegalStateException("Item does not have metadata"));
+        } catch (ClassCastException e) {
+            throw new RuntimeException("Item metadata cannot be casted to " + clazz, e);
         }
-        return clazz.cast(metadata);
     }
 
     ItemInstanceBuilder toBuilder();
