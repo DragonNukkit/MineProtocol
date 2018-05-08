@@ -170,4 +170,13 @@ public abstract class BedrockPacket extends RakNetPacket implements MinecraftPac
             buffer().writeBoolean(entityLink.isImmediate());
         }
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (this == other) return true;
+        if (!(other instanceof BedrockPacket)) return false;
+        BedrockPacket otherPacket = (BedrockPacket) other;
+        return otherPacket.getId() == getId();
+    }
+
 }

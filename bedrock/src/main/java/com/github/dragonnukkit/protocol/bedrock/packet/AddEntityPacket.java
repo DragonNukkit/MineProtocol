@@ -7,12 +7,15 @@ import com.github.dragonnukkit.protocol.bedrock.BedrockPacket;
 import com.github.dragonnukkit.protocol.bedrock.BedrockPacketHandler;
 import com.github.dragonnukkit.protocol.common.entity.Attribute;
 import com.github.dragonnukkit.protocol.common.entity.EntityLink;
+import io.netty.buffer.ByteBuf;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class AddEntityPacket extends BedrockPacket {
     private long uniqueEntityId;
     private long runtimeEntityId;
@@ -23,6 +26,10 @@ public class AddEntityPacket extends BedrockPacket {
     private final List<Attribute> attributes = new ArrayList<>();
     // metadata
     private final List<EntityLink> entityLinks = new ArrayList<>();
+
+    public AddEntityPacket(ByteBuf buffer) {
+        super(buffer);
+    }
 
     @Override
     public void encode() {
