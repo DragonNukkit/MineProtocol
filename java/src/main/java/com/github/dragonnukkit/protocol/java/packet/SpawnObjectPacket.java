@@ -30,7 +30,7 @@ public class SpawnObjectPacket implements JavaPacket {
         entityId = VarIntBufferUtils.readInt(buffer);
         entityUniqueId = CommonBufferUtils.readUniqueId(buffer);
         entityType = buffer.readByte();
-        position = JavaBufferUtils.readPosition(buffer);
+        position = JavaBufferUtils.readDoublePosition(buffer);
         rotation = JavaBufferUtils.readBodyRotation(buffer);
         data = buffer.readInt();
         motion = JavaBufferUtils.readMotion(buffer);
@@ -41,7 +41,7 @@ public class SpawnObjectPacket implements JavaPacket {
         VarIntBufferUtils.writeInt(buffer, entityId);
         CommonBufferUtils.writeUuid(buffer, entityUniqueId);
         buffer.writeByte(entityType);
-        JavaBufferUtils.writePosition(buffer, position);
+        JavaBufferUtils.writeDoublePosition(buffer, position);
         JavaBufferUtils.writeBodyRotation(buffer, rotation);
         buffer.writeInt(data);
         JavaBufferUtils.writeMotion(buffer, motion);

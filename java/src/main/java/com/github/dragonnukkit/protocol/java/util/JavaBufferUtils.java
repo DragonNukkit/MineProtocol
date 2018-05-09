@@ -2,15 +2,60 @@ package com.github.dragonnukkit.protocol.java.util;
 
 import com.flowpowered.math.vector.Vector3d;
 import com.flowpowered.math.vector.Vector3f;
+import com.flowpowered.math.vector.Vector3i;
 import com.github.dragonnukkit.protocol.api.type.math.Rotation;
+import com.github.dragonnukkit.protocol.java.type.Direction;
+import com.github.dragonnukkit.protocol.java.type.Statistic;
 import com.github.dragonnukkit.protocol.util.VarIntBufferUtils;
 import io.netty.buffer.ByteBuf;
 import lombok.experimental.UtilityClass;
 
 import java.nio.charset.StandardCharsets;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 
 @UtilityClass
 public class JavaBufferUtils {
+
+    public static Direction readDirection(ByteBuf buffer) {
+        return Direction.values()[buffer.readByte()];
+    }
+
+    public static void writeDirection(ByteBuf buffer, Direction direction) {
+        buffer.writeByte(direction.ordinal());
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> T[] readArray(ByteBuf buffer, Function<ByteBuf, T> elementSupplier) {
+        int count = VarIntBufferUtils.readInt(buffer);
+        T[] array = (T[]) new Object[count];
+        for (int i = 0; i < count; i++) {
+            array[i] = elementSupplier.apply(buffer);
+        }
+        return array;
+    }
+
+    public static <T> void writeArray(ByteBuf buffer, T[] array, BiConsumer<ByteBuf, T> elementConsumer) {
+        VarIntBufferUtils.writeInt(buffer, array.length);
+        for (T element : array) {
+            elementConsumer.accept(buffer, element);
+        }
+    }
+
+    public static Statistic[] readStatistics(ByteBuf buffer) {
+        return readArray(buffer, (current) -> {
+            String name = JavaBufferUtils.readString(current);
+            int value = VarIntBufferUtils.readInt(buffer);
+            return new Statistic(name, value);
+        });
+    }
+
+    public static void writeStatistics(ByteBuf buffer, Statistic[] statistics) {
+        writeArray(buffer, statistics, (current, statistic) -> {
+            JavaBufferUtils.writeString(current, statistic.getName());
+            VarIntBufferUtils.writeInt(current, statistic.getValue());
+        });
+    }
 
     public static String readString(ByteBuf buffer) {
         int length = VarIntBufferUtils.readInt(buffer);
@@ -49,17 +94,31 @@ public class JavaBufferUtils {
         buffer.writeByte((byte) (rotation.getHeadYaw() * 256));
     }
 
-    public static Vector3d readPosition(ByteBuf buffer) {
+    public static Vector3d readDoublePosition(ByteBuf buffer) {
         double x = buffer.readDouble();
         double y = buffer.readDouble();
         double z = buffer.readDouble();
         return new Vector3d(x, y, z);
     }
 
-    public static void writePosition(ByteBuf buffer, Vector3d position) {
+    public static void writeDoublePosition(ByteBuf buffer, Vector3d position) {
         buffer.writeDouble(position.getX());
         buffer.writeDouble(position.getY());
         buffer.writeDouble(position.getZ());
+    }
+
+    public static Vector3i readIntPosition(ByteBuf buffer) {
+        long value = buffer.readLong();
+        int x = (int) (value >> 38);
+        int y = (int) ((value >> 26) & 0xFFF);
+        int z = (int) (value << 38 >> 38);
+        return new Vector3i(x, y, z);
+    }
+
+    public static void writeIntPosition(ByteBuf buffer, Vector3i position) {
+        buffer.writeDouble((((long) (position.getX()) & 0x3FFFFFF) << 38)
+            | ((((long) position.getY()) & 0xFFF) << 26)
+            | (((long) position.getZ()) & 0x3FFFFFF));
     }
 
     public static Vector3f readMotion(ByteBuf buffer) {

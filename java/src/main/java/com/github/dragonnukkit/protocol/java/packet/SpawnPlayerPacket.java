@@ -26,7 +26,7 @@ public class SpawnPlayerPacket implements JavaPacket {
     public void encode(ByteBuf buffer) {
         entityId = VarIntBufferUtils.readInt(buffer);
         entityUniqueId = CommonBufferUtils.readUniqueId(buffer);
-        position = JavaBufferUtils.readPosition(buffer);
+        position = JavaBufferUtils.readDoublePosition(buffer);
         rotation = JavaBufferUtils.readBodyRotation(buffer);
     }
 
@@ -34,7 +34,7 @@ public class SpawnPlayerPacket implements JavaPacket {
     public void decode(ByteBuf buffer) {
         VarIntBufferUtils.writeInt(buffer, entityId);
         CommonBufferUtils.writeUuid(buffer, entityUniqueId);
-        JavaBufferUtils.writePosition(buffer, position);
+        JavaBufferUtils.writeDoublePosition(buffer, position);
         JavaBufferUtils.writeBodyRotation(buffer, rotation);
     }
 

@@ -20,14 +20,14 @@ public class SpawnGlobalEntityPacket implements JavaPacket {
     public void encode(ByteBuf buffer) {
         entityId = VarIntBufferUtils.readInt(buffer);
         type = buffer.readByte();
-        position = JavaBufferUtils.readPosition(buffer);
+        position = JavaBufferUtils.readDoublePosition(buffer);
     }
 
     @Override
     public void decode(ByteBuf buffer) {
         VarIntBufferUtils.writeInt(buffer, entityId);
         buffer.writeByte(type);
-        JavaBufferUtils.writePosition(buffer, position);
+        JavaBufferUtils.writeDoublePosition(buffer, position);
     }
 
     @Override
