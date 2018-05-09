@@ -3,7 +3,7 @@ package com.github.dragonnukkit.protocol;
 import io.netty.buffer.ByteBuf;
 
 public interface MinecraftPacket {
-    void encode(ByteBuf buf);
+    void encode(ByteBuf buffer);
 
-    void decode(ByteBuf buf);
+    void decode(ByteBuf buffer);
 }

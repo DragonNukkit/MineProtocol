@@ -2,11 +2,11 @@ package com.github.dragonnukkit.protocol.bedrock.packet;
 
 import com.flowpowered.math.vector.Vector3d;
 import com.flowpowered.math.vector.Vector3f;
-import com.github.dragonnukkit.protocol.VarInt;
+import com.github.dragonnukkit.protocol.util.VarIntBufferUtils;
 import com.github.dragonnukkit.protocol.api.type.math.Rotation;
 import com.github.dragonnukkit.protocol.bedrock.BedrockPacket;
 import com.github.dragonnukkit.protocol.bedrock.BedrockPacketHandler;
-import com.github.dragonnukkit.protocol.bedrock.BedrockUtil;
+import com.github.dragonnukkit.protocol.bedrock.util.BedrockBufferUtils;
 import com.github.dragonnukkit.protocol.common.entity.Attribute;
 import com.github.dragonnukkit.protocol.common.entity.EntityLink;
 import io.netty.buffer.ByteBuf;
@@ -28,29 +28,29 @@ public class AddEntityPacket implements BedrockPacket {
     private final List<EntityLink> entityLinks = new ArrayList<>();
 
     @Override
-    public void encode(ByteBuf buf) {
-        VarInt.writeLong(buf, uniqueEntityId);
-        VarInt.writeUnsignedLong(buf, runtimeEntityId);
-        VarInt.writeUnsignedInt(buf, entityType);
-        BedrockUtil.writeVector3f(buf, position);
-        BedrockUtil.writeVector3f(buf, motion);
-        BedrockUtil.writeBodyRotation(buf, rotation);
-        BedrockUtil.writeEntityAttributes(buf, attributes);
+    public void encode(ByteBuf buffer) {
+        VarIntBufferUtils.writeLong(buffer, uniqueEntityId);
+        VarIntBufferUtils.writeUnsignedLong(buffer, runtimeEntityId);
+        VarIntBufferUtils.writeUnsignedInt(buffer, entityType);
+        BedrockBufferUtils.writeVector3f(buffer, position);
+        BedrockBufferUtils.writeVector3f(buffer, motion);
+        BedrockBufferUtils.writeBodyRotation(buffer, rotation);
+        BedrockBufferUtils.writeEntityAttributes(buffer, attributes);
         // Metadata
-        BedrockUtil.writeEntityLinks(buf, entityLinks);
+        BedrockBufferUtils.writeEntityLinks(buffer, entityLinks);
     }
 
     @Override
-    public void decode(ByteBuf buf) {
-        uniqueEntityId = VarInt.readLong(buf);
-        runtimeEntityId = VarInt.readUnsignedLong(buf);
-        entityType = (int) VarInt.readUnsignedInt(buf);
-        position = BedrockUtil.readVector3fAs3d(buf);
-        motion = BedrockUtil.readVector3f(buf);
-        rotation = BedrockUtil.readBodyRotation(buf);
-        attributes.addAll(BedrockUtil.readEntityAttributes(buf));
+    public void decode(ByteBuf buffer) {
+        uniqueEntityId = VarIntBufferUtils.readLong(buffer);
+        runtimeEntityId = VarIntBufferUtils.readUnsignedLong(buffer);
+        entityType = (int) VarIntBufferUtils.readUnsignedInt(buffer);
+        position = BedrockBufferUtils.readVector3fAs3d(buffer);
+        motion = BedrockBufferUtils.readVector3f(buffer);
+        rotation = BedrockBufferUtils.readBodyRotation(buffer);
+        attributes.addAll(BedrockBufferUtils.readEntityAttributes(buffer));
         // Metadata
-        entityLinks.addAll(BedrockUtil.readEntityLinks(buf));
+        entityLinks.addAll(BedrockBufferUtils.readEntityLinks(buffer));
     }
 
     @Override

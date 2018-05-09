@@ -1,12 +1,14 @@
 package com.github.dragonnukkit.protocol.bedrock.packet;
 
 import com.flowpowered.math.vector.Vector3i;
-import com.github.dragonnukkit.protocol.VarInt;
+import com.github.dragonnukkit.protocol.bedrock.util.BedrockBufferUtils;
+import com.github.dragonnukkit.protocol.util.VarIntBufferUtils;
 import com.github.dragonnukkit.protocol.bedrock.BedrockPacket;
 import com.github.dragonnukkit.protocol.bedrock.BedrockPacketHandler;
-import com.github.dragonnukkit.protocol.bedrock.BedrockUtil;
 import io.netty.buffer.ByteBuf;
+import lombok.Data;
 
+@Data
 public class AddHangingEntityPacket implements BedrockPacket {
     private long uniqueEntityId;
     private long runtimeEntityId;
@@ -14,19 +16,19 @@ public class AddHangingEntityPacket implements BedrockPacket {
     private int rotation;
 
     @Override
-    public void encode(ByteBuf buf) {
-        VarInt.writeLong(buf, uniqueEntityId);
-        VarInt.writeUnsignedLong(buf, runtimeEntityId);
-        BedrockUtil.writeVector3i(buf, blockPosition);
-        VarInt.writeInt(buf, rotation);
+    public void encode(ByteBuf buffer) {
+        VarIntBufferUtils.writeLong(buffer, uniqueEntityId);
+        VarIntBufferUtils.writeUnsignedLong(buffer, runtimeEntityId);
+        BedrockBufferUtils.writeVector3i(buffer, blockPosition);
+        VarIntBufferUtils.writeInt(buffer, rotation);
     }
 
     @Override
-    public void decode(ByteBuf buf) {
-        uniqueEntityId = VarInt.readLong(buf);
-        runtimeEntityId = VarInt.readUnsignedLong(buf);
-        blockPosition = BedrockUtil.readVector3i(buf);
-        rotation = VarInt.readInt(buf);
+    public void decode(ByteBuf buffer) {
+        uniqueEntityId = VarIntBufferUtils.readLong(buffer);
+        runtimeEntityId = VarIntBufferUtils.readUnsignedLong(buffer);
+        blockPosition = BedrockBufferUtils.readVector3i(buffer);
+        rotation = VarIntBufferUtils.readInt(buffer);
     }
 
     @Override
