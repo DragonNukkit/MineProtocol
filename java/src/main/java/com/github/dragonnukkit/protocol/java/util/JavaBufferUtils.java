@@ -3,11 +3,27 @@ package com.github.dragonnukkit.protocol.java.util;
 import com.flowpowered.math.vector.Vector3d;
 import com.flowpowered.math.vector.Vector3f;
 import com.github.dragonnukkit.protocol.api.type.math.Rotation;
+import com.github.dragonnukkit.protocol.util.VarIntBufferUtils;
 import io.netty.buffer.ByteBuf;
 import lombok.experimental.UtilityClass;
 
+import java.nio.charset.StandardCharsets;
+
 @UtilityClass
 public class JavaBufferUtils {
+
+    public static String readString(ByteBuf buffer) {
+        int length = VarIntBufferUtils.readInt(buffer);
+        byte[] bytes = new byte[length];
+        buffer.readBytes(bytes);
+        return new String(bytes, StandardCharsets.UTF_8);
+    }
+
+    public static void writeString(ByteBuf buffer, String string) {
+        byte[] bytes = string.getBytes(StandardCharsets.UTF_8);
+        VarIntBufferUtils.writeInt(buffer, bytes.length);
+        buffer.writeBytes(bytes);
+    }
 
     public static Rotation readBodyRotation(ByteBuf buffer) {
         float pitch = buffer.readByte() / 256;
