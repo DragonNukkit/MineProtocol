@@ -1,10 +1,16 @@
 package com.github.dragonnukkit.protocol.java.type;
 
-import lombok.Getter;
-
 public enum Direction {
     SOUTH,
     WEST,
     NORTH,
-    EAST
+    EAST;
+
+    public byte getDirectionId() {
+        return (byte) ordinal();
+    }
+
+    public static Direction fromDirectionId(byte directionId) {
+        return values()[directionId];
+    }
 }

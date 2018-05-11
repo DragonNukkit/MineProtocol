@@ -17,7 +17,7 @@ import java.util.UUID;
 @MinecraftPacketMeta(id = 0x05)
 public class SpawnPlayerPacket implements JavaPacket {
     private int entityId;
-    private UUID entityUniqueId;
+    private UUID playerUniqueId;
     private Vector3d position;
     private Rotation rotation;
     // TODO: Metadata
@@ -25,7 +25,7 @@ public class SpawnPlayerPacket implements JavaPacket {
     @Override
     public void encode(ByteBuf buffer) {
         entityId = VarIntBufferUtils.readInt(buffer);
-        entityUniqueId = CommonBufferUtils.readUniqueId(buffer);
+        playerUniqueId = CommonBufferUtils.readUniqueId(buffer);
         position = JavaBufferUtils.readDoublePosition(buffer);
         rotation = JavaBufferUtils.readBodyRotation(buffer);
     }
@@ -33,7 +33,7 @@ public class SpawnPlayerPacket implements JavaPacket {
     @Override
     public void decode(ByteBuf buffer) {
         VarIntBufferUtils.writeInt(buffer, entityId);
-        CommonBufferUtils.writeUuid(buffer, entityUniqueId);
+        CommonBufferUtils.writeUuid(buffer, playerUniqueId);
         JavaBufferUtils.writeDoublePosition(buffer, position);
         JavaBufferUtils.writeBodyRotation(buffer, rotation);
     }

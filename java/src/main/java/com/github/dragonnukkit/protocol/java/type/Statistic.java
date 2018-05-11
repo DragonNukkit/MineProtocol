@@ -8,5 +8,4 @@ import lombok.Data;
 public class Statistic {
     private final String name; // TODO: enum?
     private int value;
-
 }

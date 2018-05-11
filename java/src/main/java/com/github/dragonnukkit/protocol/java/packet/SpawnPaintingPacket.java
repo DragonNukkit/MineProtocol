@@ -5,6 +5,7 @@ import com.github.dragonnukkit.protocol.MinecraftPacketMeta;
 import com.github.dragonnukkit.protocol.java.JavaPacket;
 import com.github.dragonnukkit.protocol.java.JavaPacketHandler;
 import com.github.dragonnukkit.protocol.java.type.Direction;
+import com.github.dragonnukkit.protocol.java.type.PaintingType;
 import com.github.dragonnukkit.protocol.java.util.JavaBufferUtils;
 import com.github.dragonnukkit.protocol.util.CommonBufferUtils;
 import com.github.dragonnukkit.protocol.util.VarIntBufferUtils;
@@ -18,7 +19,7 @@ import java.util.UUID;
 public class SpawnPaintingPacket implements JavaPacket {
     private int entityId;
     private UUID entityUniqueId;
-    private String title; // TODO: enum?
+    private PaintingType type;
     private Vector3i position;
     private Direction direction;
 
@@ -26,7 +27,7 @@ public class SpawnPaintingPacket implements JavaPacket {
     public void encode(ByteBuf buffer) {
         entityId = VarIntBufferUtils.readInt(buffer);
         entityUniqueId = CommonBufferUtils.readUniqueId(buffer);
-        title = JavaBufferUtils.readString(buffer);
+        type = JavaBufferUtils.readPaintingType(buffer);
         position = JavaBufferUtils.readIntPosition(buffer);
         direction = JavaBufferUtils.readDirection(buffer);
     }
@@ -35,7 +36,7 @@ public class SpawnPaintingPacket implements JavaPacket {
     public void decode(ByteBuf buffer) {
         VarIntBufferUtils.writeInt(buffer, entityId);
         CommonBufferUtils.writeUuid(buffer, entityUniqueId);
-        JavaBufferUtils.writeString(buffer, title);
+        JavaBufferUtils.writePaintingType(buffer, type);
         JavaBufferUtils.writeIntPosition(buffer, position);
         JavaBufferUtils.writeDirection(buffer, direction);
     }

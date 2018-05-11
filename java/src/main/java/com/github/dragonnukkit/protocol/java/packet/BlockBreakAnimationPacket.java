@@ -4,14 +4,10 @@ import com.flowpowered.math.vector.Vector3i;
 import com.github.dragonnukkit.protocol.MinecraftPacketMeta;
 import com.github.dragonnukkit.protocol.java.JavaPacket;
 import com.github.dragonnukkit.protocol.java.JavaPacketHandler;
-import com.github.dragonnukkit.protocol.java.type.Direction;
 import com.github.dragonnukkit.protocol.java.util.JavaBufferUtils;
-import com.github.dragonnukkit.protocol.util.CommonBufferUtils;
 import com.github.dragonnukkit.protocol.util.VarIntBufferUtils;
 import io.netty.buffer.ByteBuf;
 import lombok.Data;
-
-import java.util.UUID;
 
 @Data
 @MinecraftPacketMeta(id = 0x08)

@@ -19,7 +19,7 @@ import java.util.UUID;
 public class SpawnMobPacket implements JavaPacket {
     private int entityId;
     private UUID entityUniqueId;
-    private int entityType; // TODO: enum?
+    private int type; // TODO: enum?
     private Vector3d position;
     private Rotation rotation;
     private Vector3f motion;
@@ -29,7 +29,7 @@ public class SpawnMobPacket implements JavaPacket {
     public void encode(ByteBuf buffer) {
         entityId = VarIntBufferUtils.readInt(buffer);
         entityUniqueId = CommonBufferUtils.readUniqueId(buffer);
-        entityType = buffer.readByte();
+        type = buffer.readByte();
         position = JavaBufferUtils.readDoublePosition(buffer);
         rotation = JavaBufferUtils.readHeadRotation(buffer);
         motion = JavaBufferUtils.readMotion(buffer);
@@ -39,7 +39,7 @@ public class SpawnMobPacket implements JavaPacket {
     public void decode(ByteBuf buffer) {
         VarIntBufferUtils.writeInt(buffer, entityId);
         CommonBufferUtils.writeUuid(buffer, entityUniqueId);
-        buffer.writeByte(entityType);
+        buffer.writeByte(type);
         JavaBufferUtils.writeDoublePosition(buffer, position);
         JavaBufferUtils.writeHeadRotation(buffer, rotation);
         JavaBufferUtils.writeMotion(buffer, motion);

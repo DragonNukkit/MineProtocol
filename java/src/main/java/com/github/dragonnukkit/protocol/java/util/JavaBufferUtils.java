@@ -4,8 +4,8 @@ import com.flowpowered.math.vector.Vector3d;
 import com.flowpowered.math.vector.Vector3f;
 import com.flowpowered.math.vector.Vector3i;
 import com.github.dragonnukkit.protocol.api.type.math.Rotation;
+import com.github.dragonnukkit.protocol.java.type.*;
 import com.github.dragonnukkit.protocol.java.type.Direction;
-import com.github.dragonnukkit.protocol.java.type.Statistic;
 import com.github.dragonnukkit.protocol.util.VarIntBufferUtils;
 import io.netty.buffer.ByteBuf;
 import lombok.experimental.UtilityClass;
@@ -18,11 +18,35 @@ import java.util.function.Function;
 public class JavaBufferUtils {
 
     public static Direction readDirection(ByteBuf buffer) {
-        return Direction.values()[buffer.readByte()];
+        return Direction.fromDirectionId(buffer.readByte());
     }
 
     public static void writeDirection(ByteBuf buffer, Direction direction) {
-        buffer.writeByte(direction.ordinal());
+        buffer.writeByte(direction.getDirectionId());
+    }
+
+    public static AnimationType readAnimationType(ByteBuf buffer) {
+        return AnimationType.fromTypeId(buffer.readByte());
+    }
+
+    public static void writeAnimationType(ByteBuf buffer, AnimationType animation) {
+        buffer.writeByte(animation.getTypeId());
+    }
+
+    public static GlobalEntityType readGlobalEntityType(ByteBuf buffer) {
+        return GlobalEntityType.fromTypeId(buffer.readByte());
+    }
+
+    public static void writeGlobalEntityType(ByteBuf buffer, GlobalEntityType type) {
+        buffer.writeByte(type.getTypeId());
+    }
+
+    public static PaintingType readPaintingType(ByteBuf buffer) {
+        return PaintingType.fromTitle(readString(buffer));
+    }
+
+    public static void writePaintingType(ByteBuf buffer, PaintingType type) {
+        writeString(buffer, type.getTitle());
     }
 
     @SuppressWarnings("unchecked")
