@@ -16,13 +16,13 @@ public class StatisticsPacket implements JavaPacket {
     private Statistic[] statistics;
 
     @Override
-    public void encode(ByteBuf buffer) {
+    public void decode(ByteBuf buffer) {
         entityId = VarIntBufferUtils.readInt(buffer);
         statistics = JavaBufferUtils.readStatistics(buffer);
     }
 
     @Override
-    public void decode(ByteBuf buffer) {
+    public void encode(ByteBuf buffer) {
         VarIntBufferUtils.writeInt(buffer, entityId);
         JavaBufferUtils.writeStatistics(buffer, statistics);
     }

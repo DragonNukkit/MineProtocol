@@ -29,13 +29,14 @@ public class SpawnObjectPacket implements JavaPacket {
     private Vector3f motion;
 
     @Override
-    public void encode(ByteBuf buffer) {
+    public void decode(ByteBuf buffer) {
         entityId = VarIntBufferUtils.readInt(buffer);
         entityUniqueId = CommonBufferUtils.readUniqueId(buffer);
         type = buffer.readByte();
         position = JavaBufferUtils.readDoublePosition(buffer);
         rotation = JavaBufferUtils.readBodyRotation(buffer);
         int rawData = buffer.readInt();
+        // TODO: replace with EntityType.readData() when the EntityType  enumerator will be created.
         switch (type) {
             case 10: // Minecart
                 data = MinecartData.fromMinecartType(MinecartType.fromTypeId(rawData));
@@ -64,7 +65,7 @@ public class SpawnObjectPacket implements JavaPacket {
     }
 
     @Override
-    public void decode(ByteBuf buffer) {
+    public void encode(ByteBuf buffer) {
         VarIntBufferUtils.writeInt(buffer, entityId);
         CommonBufferUtils.writeUuid(buffer, entityUniqueId);
         buffer.writeByte(type);

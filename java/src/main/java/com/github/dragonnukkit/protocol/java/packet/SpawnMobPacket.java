@@ -26,7 +26,7 @@ public class SpawnMobPacket implements JavaPacket {
     // TODO: Metadata
 
     @Override
-    public void encode(ByteBuf buffer) {
+    public void decode(ByteBuf buffer) {
         entityId = VarIntBufferUtils.readInt(buffer);
         entityUniqueId = CommonBufferUtils.readUniqueId(buffer);
         type = buffer.readByte();
@@ -36,7 +36,7 @@ public class SpawnMobPacket implements JavaPacket {
     }
 
     @Override
-    public void decode(ByteBuf buffer) {
+    public void encode(ByteBuf buffer) {
         VarIntBufferUtils.writeInt(buffer, entityId);
         CommonBufferUtils.writeUuid(buffer, entityUniqueId);
         buffer.writeByte(type);

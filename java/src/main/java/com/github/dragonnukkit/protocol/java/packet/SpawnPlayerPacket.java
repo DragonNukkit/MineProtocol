@@ -23,7 +23,7 @@ public class SpawnPlayerPacket implements JavaPacket {
     // TODO: Metadata
 
     @Override
-    public void encode(ByteBuf buffer) {
+    public void decode(ByteBuf buffer) {
         entityId = VarIntBufferUtils.readInt(buffer);
         playerUniqueId = CommonBufferUtils.readUniqueId(buffer);
         position = JavaBufferUtils.readDoublePosition(buffer);
@@ -31,7 +31,7 @@ public class SpawnPlayerPacket implements JavaPacket {
     }
 
     @Override
-    public void decode(ByteBuf buffer) {
+    public void encode(ByteBuf buffer) {
         VarIntBufferUtils.writeInt(buffer, entityId);
         CommonBufferUtils.writeUuid(buffer, playerUniqueId);
         JavaBufferUtils.writeDoublePosition(buffer, position);

@@ -18,14 +18,14 @@ public class SpawnGlobalEntityPacket implements JavaPacket {
     private Vector3d position;
 
     @Override
-    public void encode(ByteBuf buffer) {
+    public void decode(ByteBuf buffer) {
         entityId = VarIntBufferUtils.readInt(buffer);
         type = JavaBufferUtils.readGlobalEntityType(buffer);
         position = JavaBufferUtils.readDoublePosition(buffer);
     }
 
     @Override
-    public void decode(ByteBuf buffer) {
+    public void encode(ByteBuf buffer) {
         VarIntBufferUtils.writeInt(buffer, entityId);
         JavaBufferUtils.writeGlobalEntityType(buffer, type);
         JavaBufferUtils.writeDoublePosition(buffer, position);

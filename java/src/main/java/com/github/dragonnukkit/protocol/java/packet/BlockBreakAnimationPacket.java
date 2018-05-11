@@ -17,14 +17,14 @@ public class BlockBreakAnimationPacket implements JavaPacket {
     private byte destroyStage;
 
     @Override
-    public void encode(ByteBuf buffer) {
+    public void decode(ByteBuf buffer) {
         entityId = VarIntBufferUtils.readInt(buffer);
         position = JavaBufferUtils.readIntPosition(buffer);
         destroyStage = buffer.readByte();
     }
 
     @Override
-    public void decode(ByteBuf buffer) {
+    public void encode(ByteBuf buffer) {
         VarIntBufferUtils.writeInt(buffer, entityId);
         JavaBufferUtils.writeIntPosition(buffer, position);
         buffer.writeByte(destroyStage);

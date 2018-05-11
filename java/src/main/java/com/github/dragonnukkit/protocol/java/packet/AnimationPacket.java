@@ -16,13 +16,13 @@ public class AnimationPacket implements JavaPacket {
     private AnimationType animation;
 
     @Override
-    public void encode(ByteBuf buffer) {
+    public void decode(ByteBuf buffer) {
         entityId = VarIntBufferUtils.readInt(buffer);
         animation = JavaBufferUtils.readAnimationType(buffer);
     }
 
     @Override
-    public void decode(ByteBuf buffer) {
+    public void encode(ByteBuf buffer) {
         VarIntBufferUtils.writeInt(buffer, entityId);
         JavaBufferUtils.writeAnimationType(buffer, animation);
     }

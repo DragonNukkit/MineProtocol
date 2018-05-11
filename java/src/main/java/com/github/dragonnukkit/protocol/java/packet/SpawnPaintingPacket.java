@@ -24,7 +24,7 @@ public class SpawnPaintingPacket implements JavaPacket {
     private Direction direction;
 
     @Override
-    public void encode(ByteBuf buffer) {
+    public void decode(ByteBuf buffer) {
         entityId = VarIntBufferUtils.readInt(buffer);
         entityUniqueId = CommonBufferUtils.readUniqueId(buffer);
         type = JavaBufferUtils.readPaintingType(buffer);
@@ -33,7 +33,7 @@ public class SpawnPaintingPacket implements JavaPacket {
     }
 
     @Override
-    public void decode(ByteBuf buffer) {
+    public void encode(ByteBuf buffer) {
         VarIntBufferUtils.writeInt(buffer, entityId);
         CommonBufferUtils.writeUuid(buffer, entityUniqueId);
         JavaBufferUtils.writePaintingType(buffer, type);
